@@ -10,23 +10,23 @@ public class HashExample {
 
             String[] algorithms = {"MD5", "SHA-1", "SHA-256"};
 
-            try (FileWriter writer1 = new FileWriter("hashes.txt")) {
+            try (FileWriter writer = new FileWriter("hashes.txt")) {
                 for (String algorithm : algorithms) {
                     MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
                     byte[] hashBytes = messageDigest.digest(phraseToHash.getBytes());
-                    writer1.write(algorithm + " hash: " + bytesToHex(hashBytes) + "\n");
+                    writer.write(algorithm + " hash: " + bytesToHex(hashBytes) + "\n");
                 }
             }
         } catch (NoSuchAlgorithmException e) {e.printStackTrace();}
 
         try {
             String[] algorithmsForSecondTask = {"SHA1PRNG", "DRBG", "Windows-PRNG"};
-            try (FileWriter writer2 = new FileWriter("hashes.txt", true)) {
+            try (FileWriter writer1 = new FileWriter("hashes.txt", true)) {
                 for (String algorithm : algorithmsForSecondTask) {
                     SecureRandom secureRandom = SecureRandom.getInstance(algorithm);
                     byte[] randomBytes = new byte[16];
                     secureRandom.nextBytes(randomBytes);
-                    writer2.write(algorithm + " random: " + bytesToHex(randomBytes));
+                    writer1.write(algorithm + " random: " + bytesToHex(randomBytes));
                 }
             }
         } catch (NoSuchAlgorithmException e) {e.printStackTrace();}
